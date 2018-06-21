@@ -1,0 +1,9 @@
+{
+  "presets": ["react-native"],
+  "plugins": [[
+    "module-alias", [
+      { "src": "./src/utils/theme", "expose": "theme" },
+      { "src": "./src/layout", "expose": "layout"}
+    ]
+  ]]
+}
