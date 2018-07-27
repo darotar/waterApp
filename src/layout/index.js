@@ -13,7 +13,7 @@ export const Flex = styled.View`
   justify-content: center;
   width: 100%;
   flex-direction: ${props => props.row ? 'row' : 'column'};
-  position: ${props => props.absolute ? 'absolute' : 'static'};
+  position: ${props => props.absolute ? 'absolute' : 'relative'};
   height: 100%;
 `;
 

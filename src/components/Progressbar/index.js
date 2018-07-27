@@ -1,11 +1,45 @@
-import React, { PureComponent } from 'react';
-import { TouchableWithoutFeedback, View, Animated } from 'react-native';
+import React, { Component } from 'react';
+import { View, Animated, Text } from 'react-native';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import Realm from 'realm';
 import theme from '../../utils/theme';
 import { Flex } from '../../layout';
-import { connect } from '../../utils/connect';
 
-class Progressbar extends PureComponent {
+const mapStateToProps = ({
+  result,
+  volume,
+  goal,
+  filling
+  }) => ({
+    result,
+    volume,
+    goal,
+    filling
+  });
+
+class Progressbar extends Component {
+
+  state = {
+    filling: new Animated.Value(0),
+    realm: null
+  }
+
+  componentWillMount() {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { filling } = this.state;
+    const { result, goal } = this.props;
+
+    return Animated.sequence([
+      Animated.timing(filling, {
+        duration: 250,
+        toValue: nextProps.filling,
+      }),
+    ]).start();
+  }
+
   onPress = (value) => {
     return () => {
       const { result, volume, goal } = value;
@@ -15,37 +49,35 @@ class Progressbar extends PureComponent {
   }
 
   render() {
-    const { store } = this.props;
+    const { result, goal} = this.props;
+    const { filling } = this.state;
 
     const animatedStyle = {
       backgroundColor: theme.color.aqua,
       height: 80,
       position: 'absolute',
       top: 0,
-      width: store.filling.interpolate({
+      width: filling.interpolate({
         inputRange: [0, 100],
         outputRange: ['0%', '100%']
       })
     };
-    
 
     return (
-      <TouchableWithoutFeedback style={{width: '100%'}} onPress={this.onPress(store)}>
         <View style={{width: '100%' }}>
           <ProgressbarWrapper />
           <Animated.View style={animatedStyle} />
           <Flex row absolute>
-            <ProgressbarResult>{store.result}</ProgressbarResult>
+            <ProgressbarResult>{result}</ProgressbarResult>
             <ProgressbarSlash>/</ProgressbarSlash>
-            <ProgressbarGoal>{store.goal}</ProgressbarGoal>
+            <ProgressbarGoal>{goal}</ProgressbarGoal>
           </Flex>
         </View>
-      </TouchableWithoutFeedback>
     );
   }
 }
 
-export default connect()(Progressbar);
+export default connect(mapStateToProps)(Progressbar);
 
 const ProgressbarWrapper = styled.View`
   flex-direction: row;
@@ -68,4 +100,3 @@ const ProgressbarSlash = styled.Text`
 const ProgressbarGoal = styled.Text`
   font-size: 25px;
 `;
-

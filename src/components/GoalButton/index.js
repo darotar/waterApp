@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
 import { RoundButton } from '../../layout';
-import { connect } from '../../utils/connect';
+import { connect } from 'react-redux';
+import { setGoal } from '../../../store/actions';
+
+const mapDispatchToProps = dispatch => ({ setGoal: () => dispatch(setGoal()) });
 
 class GoalButton extends Component {
   state = {
@@ -10,20 +13,12 @@ class GoalButton extends Component {
   }
 
   onPress = (value) => {
-    return () => {
-      if (this.state.chosen) {
-        this.setState({ chosen: false });
-        return value.changeGoal(2000);
-      }
-      
-      this.setState({ chosen: true });
-      return value.changeGoal(3000);
-    }
+    this.props.setGoal();
   }
-  
+
   render() {
     return (
-      <TouchableOpacity onPress={this.onPress(this.props.store)}>
+      <TouchableOpacity onPress={this.onPress}>
         <RoundButton>
           <Text>G</Text>
         </RoundButton>
@@ -32,4 +27,4 @@ class GoalButton extends Component {
   }
 }
 
-export default connect()(GoalButton);
+export default connect(null, mapDispatchToProps)(GoalButton);

@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
+
+import { resetResult } from '../../../store/actions';
 import { RoundButton } from '../../layout';
 import { ResetIcon } from '../../icons';
-import { connect } from '../../utils/connect';
+
+const mapDispatchToProps = dispatch => ({ resetResult: () => dispatch(resetResult()) });
 
 class CancelButton extends PureComponent {
-  onPress = (value) => {
-    return () => {
-      return value.changeResult({ cancel: true });
-    }
-  }
-  
   render() {
     return (
-      <TouchableOpacity onPress={this.onPress(this.props.store)}>
+      <TouchableOpacity onPress={this.props.resetResult}>
         <RoundButton>
           <ResetIcon />
         </RoundButton>
@@ -22,4 +20,4 @@ class CancelButton extends PureComponent {
   }
 }
 
-export default connect()(CancelButton);
+export default connect(null, mapDispatchToProps)(CancelButton);

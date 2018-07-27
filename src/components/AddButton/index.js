@@ -2,12 +2,23 @@ import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { RoundButton } from '../../layout';
 import { Text } from 'react-native';
-import { connect } from '../../utils/connect';
+import { connect } from 'react-redux';
+import { setResult } from '../../../store/actions';
+
+const mapDispatchToProps = dispatch => ({ setResult: (result) => dispatch(setResult(result)) });
+const mapStateToProps = (store) => ({ store });
 
 class AddButton extends PureComponent {
+  onPress = () => {
+    const { result } = this.props.store;
+    const { setResult } = this.props;
+
+    setResult(result);
+  }
+
   render() {
     return (
-      <TouchableOpacity onPress={this.props.store.changeResult}>
+      <TouchableOpacity onPress={this.onPress}>
         <RoundButton>
           <Text>+</Text>
         </RoundButton>
@@ -16,4 +27,4 @@ class AddButton extends PureComponent {
   }
 }
 
-export default connect()(AddButton);
+export default connect(mapStateToProps, mapDispatchToProps)(AddButton);
