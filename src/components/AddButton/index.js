@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { RoundButton } from '../../layout';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import { setResult } from '../../../store/actions';
+import { setResult } from '../../store/actions';
 
 const mapDispatchToProps = dispatch => ({ setResult: (result) => dispatch(setResult(result)) });
 const mapStateToProps = (store) => ({ store });

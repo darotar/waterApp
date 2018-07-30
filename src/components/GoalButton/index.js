@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
 import { RoundButton } from '../../layout';
 import { connect } from 'react-redux';
-import { setGoal } from '../../../store/actions';
+import { setGoal } from '../../store/actions';
 
 const mapDispatchToProps = dispatch => ({ setGoal: () => dispatch(setGoal()) });
 

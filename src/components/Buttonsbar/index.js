@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { AddButton, CancelButton, GoalButton } from '../index';
+import moment from 'moment';
 
 class Buttonsbar extends PureComponent {
   render() {
-    console.log(toSource);
+    console.log(moment().format('DD-MM-YY'));
     return (
       <ButtonsbarWrapper>
         <AddButton />

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 
-import { resetResult } from '../../../store/actions';
+import { resetResult } from '../../store/actions';
 import { RoundButton } from '../../layout';
 import { ResetIcon } from '../../icons';
 
